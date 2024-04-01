@@ -1,6 +1,13 @@
 package com.simple.common;
 
-public class Page {
+import java.io.Serializable;
+
+/**
+ * 分页参数对象
+ *
+ * @author Simple
+ */
+public class Page implements Serializable {
     private static final long serialVersionUID = 4594071922809227379L;
     public static final int DEFAULT_PAGE = 1;
     public static final int DEFAULT_PAGE_SIZE = 20;
@@ -8,7 +15,9 @@ public class Page {
     private Long pageSize;
     private Long totalPage;
     private Long totalRows;
-    public Page(){}
+
+    public Page() {
+    }
 
     public Page(Long pageNo, Long pageSize) {
         this.pageNo = pageNo;

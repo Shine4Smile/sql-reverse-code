@@ -1,7 +1,11 @@
 package com.simple.common;
 
 
-
+/**
+ * 封装返回结果
+ *
+ * @author Simple
+ */
 public class Response {
     private static final int STATUS_SUCCESS = 0;
     private static final int STATUS_ERROR = -1;
@@ -25,15 +29,15 @@ public class Response {
     }
 
     public static Response ok() {
-        return new Response(0, "操作成功", (Object)null, (Page)null, (Object)null);
+        return new Response(0, "操作成功", (Object) null, (Page) null, (Object) null);
     }
 
     public static Response ok(Object result) {
-        return new Response(0, "操作成功", result, (Page)null, (Object)null);
+        return new Response(0, "操作成功", result, (Page) null, (Object) null);
     }
 
     public static Response ok(Object result, Page page) {
-        return new Response(0, "操作成功", result, page, (Object)null);
+        return new Response(0, "操作成功", result, page, (Object) null);
     }
 
     public static Response ok(Object result, Page page, Object statistics) {
@@ -46,19 +50,19 @@ public class Response {
     }
 
     public static Response error() {
-        return new Response(-1, "操作失败", (Object)null, (Page)null, (Object)null);
+        return new Response(-1, "操作失败", (Object) null, (Page) null, (Object) null);
     }
 
     public static Response error(Object result) {
-        return new Response(-1, "操作失败", result, (Page)null, (Object)null);
+        return new Response(-1, "操作失败", result, (Page) null, (Object) null);
     }
 
     public static Response error(String msg) {
-        return new Response(-1, msg, null, (Page)null, (Object)null);
+        return new Response(-1, msg, null, (Page) null, (Object) null);
     }
 
     public static Response error(Object result, Page page) {
-        return new Response(-1, "操作失败", result, page, (Object)null);
+        return new Response(-1, "操作失败", result, page, (Object) null);
     }
 
     public static Response error(String message, Object result, Page page, Object statistics) {
@@ -66,7 +70,7 @@ public class Response {
     }
 
     public static Response error(int status, String message) {
-        return new Response(status, message, (Object)null, (Page)null, (Object)null);
+        return new Response(status, message, (Object) null, (Page) null, (Object) null);
     }
 
     public int getstatus() {

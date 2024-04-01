@@ -10,6 +10,8 @@ import java.sql.SQLException;
 
 /**
  * 用于数据库连接测试
+ *
+ * @author Simple
  */
 public class DBConnect {
     /**
@@ -17,10 +19,9 @@ public class DBConnect {
      * 返回null表示连接成功
      *
      * @param config 数据源配置
-     * @return
      */
     public static String testConnect(DataSourceConfig config) {
-        String res = null;
+        String res = "";
         Connection connection = null;
         try {
             connection = getConnection(config);
@@ -48,9 +49,8 @@ public class DBConnect {
      * 创建一个数据库连接
      *
      * @param config 数据源配置
-     * @return
-     * @throws ClassNotFoundException
-     * @throws SQLException
+     * @throws ClassNotFoundException 驱动类未加载异常
+     * @throws SQLException           sql异常
      */
     public static Connection getConnection(DataSourceConfig config) throws ClassNotFoundException, SQLException {
         Class.forName(getDriverClass(config.getDbType()));
@@ -62,7 +62,6 @@ public class DBConnect {
      * 获取对应数据源信息，格式化数据库连接
      *
      * @param config 数据源配置
-     * @return
      */
     public static String formatJdbcUrl(DataSourceConfig config) {
         DataBaseType info = DataBaseType.getDBInfoByType(config.getDbType());
@@ -77,7 +76,6 @@ public class DBConnect {
      * 根据数据源类型获取驱动类信息
      *
      * @param type 数据源类型
-     * @return
      */
     public static String getDriverClass(Integer type) {
         DataBaseType info = DataBaseType.getDBInfoByType(type);

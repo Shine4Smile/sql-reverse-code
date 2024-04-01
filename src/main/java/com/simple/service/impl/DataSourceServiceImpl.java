@@ -3,12 +3,19 @@ package com.simple.service.impl;
 import cn.hutool.core.util.IdUtil;
 import com.simple.bean.DataSourceConfig;
 import com.simple.mapper.DataSourceMapper;
+import com.simple.operator.SqlService;
+import com.simple.operator.SqlServiceFactory;
+import com.simple.operator.TableSelector;
+import com.simple.operator.bean.TableInfo;
 import com.simple.service.DataSourceService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 
+/**
+ * @author Simple
+ */
 @Service
 public class DataSourceServiceImpl implements DataSourceService {
     @Resource
@@ -65,8 +72,21 @@ public class DataSourceServiceImpl implements DataSourceService {
         return dataSourceMapper.deleteById(id) > 0;
     }
 
+    /**
+     * 根据数据源id获取该数据源表信息
+     *
+     * @param id 数据源id
+     */
     @Override
-    public List getTableNameListById(Long id) {
-        return null;
+    public List<TableInfo> getTableInfoListById(Long id) {
+        // 根据数据源id从数据库中获取该数据源配置信息
+        DataSourceConfig dataSourceConfig = dataSourceMapper.selectById(id);
+        // 根据数据库类型获取对应service
+        SqlService service = SqlServiceFactory.getService(dataSourceConfig.getDbType());
+        // 获取到对应数据库的表信息查询器
+        TableSelector tableSelector = service.getTableSelector(dataSourceConfig);
+        tableSelector.setGenerate(true);
+        List<TableInfo> tableInfos = tableSelector.getTableInfos();
+        return tableInfos;
     }
 }

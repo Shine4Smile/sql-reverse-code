@@ -18,13 +18,15 @@ import java.util.stream.Collectors;
 /**
  * 初始化数据库
  * 实现ApplicationRunner接口，重写run方法，是为了在springboot启动完成后自动执行初始化数据库方法
+ *
+ * @author Simple
  */
 @Service
 public class UpgradeDataBase implements ApplicationRunner {
     private static final Logger LOGGER = LoggerFactory.getLogger(UpgradeDataBase.class);
 
     @Resource
-    private JdbcTemplate jdbcTemplate;
+    private JdbcTemplate sqliteJdbcTemplate;
 
     /**
      * 最新数据库版本号
@@ -41,7 +43,7 @@ public class UpgradeDataBase implements ApplicationRunner {
             String sqlString = FileUtil.readUtf8String(file);
             String[] sqlArray = sqlString.split(";");
             for (String sql : sqlArray) {
-                jdbcTemplate.execute(sql);
+                sqliteJdbcTemplate.execute(sql);
             }
         }
         LOGGER.info("完成初始化数据库");

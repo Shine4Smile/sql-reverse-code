@@ -3,6 +3,8 @@ package com.simple.enums;
 
 /**
  * 当前程序支持的数据源类型枚举
+ *
+ * @author Simple
  */
 public enum DataBaseType {
     MYSQL5(1,
@@ -20,12 +22,12 @@ public enum DataBaseType {
             "oracle.jdbc.driver.OracleDriver",
             "jdbc:oracle:thin:@%s:%s%s"),
 
-    SQL_SERVER(4,
+    SQLSERVER(4,
             "SQL Server",
             "com.microsoft.sqlserver.jdbc.SQLServerDriver",
             "jdbc:sqlserver://%s:%s;DatabaseName=%s"),
 
-    POSTGRE_SQL(5,
+    POSTGRESQL(5,
             "PostgreSQL",
             "org.postgresql.Driver",
             "jdbc:postgresql://%s:%s/%s");

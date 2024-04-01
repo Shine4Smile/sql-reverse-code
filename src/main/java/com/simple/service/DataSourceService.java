@@ -1,9 +1,15 @@
 package com.simple.service;
 
 import com.simple.bean.DataSourceConfig;
+import com.simple.operator.bean.TableInfo;
 
 import java.util.List;
 
+/**
+ * 数据源相关操作service
+ *
+ * @author Simple
+ */
 public interface DataSourceService {
     /**
      * 查询数据源列表
@@ -36,5 +42,10 @@ public interface DataSourceService {
      */
     boolean delDataSource(Long id);
 
-    List  getTableNameListById(Long id);
+    /**
+     * 根据数据源id获取该数据源表信息
+     *
+     * @param id 数据源id
+     */
+    List<TableInfo> getTableInfoListById(Long id);
 }

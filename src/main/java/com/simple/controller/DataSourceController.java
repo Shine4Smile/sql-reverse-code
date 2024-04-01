@@ -3,6 +3,7 @@ package com.simple.controller;
 import com.simple.bean.DataSourceConfig;
 import com.simple.common.Response;
 import com.simple.configuration.DBConnect;
+import com.simple.operator.bean.TableInfo;
 import com.simple.service.DataSourceService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,8 @@ import java.util.List;
 
 /**
  * 数据源控制器，用于数据源的测试、新增、编辑等
+ *
+ * @author Simple
  */
 @RestController
 @RequestMapping("/datasource")
@@ -98,10 +101,12 @@ public class DataSourceController {
 
     /**
      * 根据选择的数据源，获取该数据源中的表名
+     *
      * @return
      */
-    @GetMapping("/getTableNameListById")
-    public Response getTableNameListById(){
-        return Response.ok();
+    @GetMapping("/getTableInfoListById")
+    public Response getTableInfoListById(Long id) {
+        List<TableInfo> tableInfos = dataSourceService.getTableInfoListById(id);
+        return Response.ok(tableInfos);
     }
 }

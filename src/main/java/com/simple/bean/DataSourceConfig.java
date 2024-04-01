@@ -3,11 +3,13 @@ package com.simple.bean;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Id;
 
 
 /**
  * 数据源配置信息
+ *
+ * @author Simple
  */
 @Data
 public class DataSourceConfig {
