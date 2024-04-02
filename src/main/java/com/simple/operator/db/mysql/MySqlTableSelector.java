@@ -15,6 +15,7 @@ import java.util.Map;
  */
 public class MySqlTableSelector extends TableSelector {
 
+    private static final String SHOW_TABLE_INFO = "SHOW TABLE STATUS FROM %s";
 
     public MySqlTableSelector(DataSourceConfig dataSourceConfig, FieldSelector fieldSelector) {
         super(dataSourceConfig, fieldSelector);
@@ -23,15 +24,13 @@ public class MySqlTableSelector extends TableSelector {
     /**
      * 不同数据库获取表信息的sql语句不同，所以定义为抽象类
      *
-     * @param config 数据源配置
      * @return SQL语句
      */
     @Override
-    public String getShowTablesSql(DataSourceConfig config) {
+    public String getShowTablesSql() {
         // todo 数据库名称包含特殊字符问题
-        String dbName = config.getDbName();
-        String sql = "SHOW TABLE STATUS FROM " + dbName;
-        return sql;
+        String dbName = dataSourceConfig.getDbName();
+        return String.format(SHOW_TABLE_INFO, dbName);
     }
 
     /**

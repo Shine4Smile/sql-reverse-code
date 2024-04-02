@@ -17,7 +17,11 @@ public class FieldInfo {
     /**
      * 字段类型
      */
-    private String type;
+    private String columnType;
+    /**
+     * 字段对应的java类型
+     */
+    private String columnJavaType;
     /**
      * 是否自增
      */

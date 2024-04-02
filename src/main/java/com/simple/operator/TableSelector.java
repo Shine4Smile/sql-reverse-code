@@ -20,7 +20,7 @@ public abstract class TableSelector {
     /**
      * 数据源配置
      */
-    private DataSourceConfig dataSourceConfig;
+    protected DataSourceConfig dataSourceConfig;
 
     /**
      * fieldInfo实例，在获取对应数据库service时指定
@@ -37,10 +37,9 @@ public abstract class TableSelector {
     /**
      * 不同数据库获取表信息的sql语句不同，所以定义为抽象类
      *
-     * @param config 数据源配置
      * @return SQL语句
      */
-    public abstract String getShowTablesSql(DataSourceConfig config);
+    public abstract String getShowTablesSql();
 
     /**
      * 不同数据库中获取的表信息字段不同，所以也将该方法抽象出来
@@ -56,7 +55,7 @@ public abstract class TableSelector {
      */
     public List<TableInfo> getTableInfos() {
         // 因为不同数据库获取表信息sql语句可能不同所以，将getShowTablesSql方法抽象出来，由具体子类实现
-        String sql = getShowTablesSql(dataSourceConfig);
+        String sql = getShowTablesSql();
         JdbcTemplate jdbcTemplate = DataBaseConfig.otherJdbcTemplate(dataSourceConfig);
         List<Map<String, Object>> queryForList = jdbcTemplate.queryForList(sql);
         List<TableInfo> tableInfoList = new ArrayList<>();
@@ -68,7 +67,7 @@ public abstract class TableSelector {
         } else {
             for (Map<String, Object> tableMap : queryForList) {
                 TableInfo tableInfo = buildTableInfo(tableMap);
-                List<FieldInfo> fieldInfoList = fieldSelector.getFieldInfo(jdbcTemplate, tableInfo.getTableName());
+                List<FieldInfo> fieldInfoList = fieldSelector.buildFieldInfo(jdbcTemplate, tableInfo.getTableName());
                 tableInfo.setFieldInfoList(fieldInfoList);
                 tableInfoList.add(tableInfo);
             }
